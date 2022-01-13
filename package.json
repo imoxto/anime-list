@@ -1,0 +1,40 @@
+{
+	"scripts": {
+		"bootstrap": "lerna bootstrap",
+		"start": "lerna run start",
+		"build": "lerna run tsc",
+		"build:watch": "lerna run tsc:watch --parallel --scope @anime-list/common --scope @anime-list/server",
+		"server": "node packages/server/dist/index",
+		"server:watch": "nodemon packages/server/dist/index"
+	},
+	"devDependencies": {
+		"@types/jest": "^27.4.0",
+		"@types/node": "^17.0.8",
+		"@typescript-eslint/eslint-plugin": "^5.8.1",
+		"@typescript-eslint/parser": "^5.8.1",
+		"concurrently": "^6.5.1",
+		"del-cli": "^4.0.1",
+		"eslint": "^8.5.0",
+		"eslint-config-airbnb-base": "^15.0.0",
+		"eslint-config-airbnb-typescript": "^16.1.0",
+		"eslint-config-next": "^12.0.7",
+		"eslint-config-prettier": "^8.3.0",
+		"eslint-import-resolver-node": "^0.3.6",
+		"eslint-plugin-import": "^2.25.3",
+		"eslint-plugin-jsx-a11y": "^6.5.1",
+		"eslint-plugin-prettier": "^4.0.0",
+		"eslint-plugin-react": "^7.28.0",
+		"eslint-plugin-react-hooks": "^4.3.0",
+		"eslint-plugin-unused-imports": "^2.0.0",
+		"jest": "^27.4.7",
+		"lerna": "^4.0.0",
+		"nodemon": "^2.0.15",
+		"prettier": "^2.5.1",
+		"ts-jest": "^27.1.2",
+		"typescript": "^4.5.4"
+	},
+	"name": "anime-list",
+	"dependencies": {
+		"colors": "^1.4.0"
+	}
+}

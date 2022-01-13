@@ -1,0 +1,12 @@
+#modules
+node_modules
+node_modules/
+
+#logs
+lerna-debug.log
+npm-debug.log
+
+#etc
+packages/*/lib
+packages/*/dist
+.idea

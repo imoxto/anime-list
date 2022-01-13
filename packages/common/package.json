@@ -1,0 +1,29 @@
+{
+	"name": "@anime-list/common",
+	"version": "0.0.0",
+	"description": "A common package needed by our project",
+	"keywords": [
+		"common",
+		"shared"
+	],
+	"author": "xImouto <mohammad.rafid.hamid@g.bracu.ac.bd>",
+	"homepage": "",
+	"license": "ISC",
+	"main": "./dist/index.js",
+	"directories": {
+		"dist": "dist",
+		"test": "__tests__"
+	},
+	"files": [
+		"dist"
+	],
+	"scripts": {
+		"start": "node dist/index.js",
+		"tsc": "tsc",
+		"tsc:watch": "tsc -w",
+		"test": "echo \"Error: run tests from root\" && exit 1"
+	},
+	"dependencies": {
+		"yup": "^0.32.11"
+	}
+}
