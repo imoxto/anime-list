@@ -1,5 +1,5 @@
 <div align="center"> <h1>Anime List</h1> </div>
-<div align="center"><b>A modern fullstack "name" application</b></div>
+<div align="center"><b>A modern fullstack Anime List application</b></div>
 </br>
 
 ## Contents
