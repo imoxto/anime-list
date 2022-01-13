@@ -70,7 +70,7 @@ web_modules/
 .yarn-integrity
 
 # dotenv environment variables file
-.env/
+.env/*
 .env
 .env.test
 .env.production
@@ -119,6 +119,7 @@ dist
 .pnp.*
 
 #others
+logs/*
 build
 old
 *.zip
