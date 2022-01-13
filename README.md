@@ -8,4 +8,4 @@
 
 ## Description
 
-This monorepo of an app/website with place holdername "Anime list". For now, it is backend only, but it can turned into fullstack easily through creating a frontend package on packages folder
+This monorepo of "Anime list". For now, it is backend only, but it will be turned into a fullstack app soon tm
