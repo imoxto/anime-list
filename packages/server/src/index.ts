@@ -1,5 +1,6 @@
 import express from 'express';
 import Color from 'colors';
+
 import { logger } from './middlewares';
 import './config';
 import RootRouter from './routes';
