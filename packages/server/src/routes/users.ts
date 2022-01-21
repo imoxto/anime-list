@@ -4,6 +4,7 @@ import userController from '../controllers/user';
 const UserRouter = express.Router();
 
 UserRouter.post('/signup', userController.signUp);
+UserRouter.post('/login', userController.login);
 UserRouter.get('/', (_, res) => {
 	res.status(200).json({ data: 'Hello World!' });
 });

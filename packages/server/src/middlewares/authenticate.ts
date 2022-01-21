@@ -13,11 +13,15 @@ passport.deserializeUser(Users.deserializeUser());
 const opts = {
 	jwtFromRequest: ExtractJwt.fromAuthHeaderAsBearerToken(),
 	secretOrKey: process.env.jwtSecret,
+	algorithms: process.env.jwtAlgorithm ? [process.env.jwtAlgorithm] : undefined,
 };
 
 export default {
 	getToken: (user: any) =>
-		jwt.sign(user, process.env.jwtSecret || '1234', { expiresIn: process.env.jwtExpiresIn }),
+		jwt.sign(user, process.env.jwtSecret || '1234', {
+			expiresIn: process.env.jwtExpiresIn,
+			algorithm: process.env.jwtAlgorithm,
+		}),
 
 	jwtPassport: passport.use(
 		new Strategy(opts, (jwt_payload, done) => {
@@ -37,8 +41,8 @@ export default {
 
 	verifyUser: passport.authenticate('jwt', { session: false }),
 
-	verifyType: (req: Request, res: Response, next: NextFunction) => {
-		if (req.user && req.user.access) {
+	verifyAccess: (req: Request, res: Response, next: NextFunction, access: number) => {
+		if (req.user && req.user.access && access <= req.user.access) {
 			next();
 		} else {
 			handleError(res, 403, 'You are not authorized to perform this operation!');

@@ -16,9 +16,9 @@ const handleError = (
 
 const handleSuccess = (
 	res: Response<SuccessApiResponse<any>>,
-	data: string,
-	statusCode?: number,
-	message?: string
+	data: any,
+	message?: string,
+	statusCode?: number
 ) => {
 	res.status(statusCode || 200).json({
 		status: 'success',

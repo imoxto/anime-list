@@ -2,11 +2,10 @@ import { Request, Response } from 'express';
 import passport from 'passport';
 import { authenticate } from '../middlewares';
 import { Users } from '../models';
-import { handleError } from '../utils';
+import { handleError, handleSuccess } from '../utils';
 
 const userController = {
 	async signUp(req: Request, res: Response) {
-		console.log('here');
 		try {
 			let user: any = await Users.register(
 				new Users({ username: req.body.username }),
@@ -15,15 +14,16 @@ const userController = {
 			if (user) {
 				if (req.body.firstname) user.firstname = req.body.firstname;
 				if (req.body.lastname) user.lastname = req.body.lastname;
+				if (req.body.birthday) user.birthday = req.body.birthday;
 
-				user = user.save();
+				user = await user.save();
 				passport.authenticate('local')(req, res, () => {
-					res.json({
-						message: 'Registration success!',
+					handleSuccess(
+						res,
 						// eslint-disable-next-line no-underscore-dangle
-						token: authenticate.getToken({ _id: user._id }),
-						user,
-					});
+						{ token: authenticate.getToken({ _id: user._id }), user },
+						'Registration success!'
+					);
 				});
 			} else {
 				throw new Error('Something went wrong!');
@@ -31,6 +31,18 @@ const userController = {
 		} catch (error) {
 			handleError(res, 500, 'Something went wrong!', error);
 		}
+	},
+	async login(req: Request, res: Response) {
+		passport.authenticate('local')(req, res, () => {
+			if (req.user) {
+				handleSuccess(
+					res,
+					// eslint-disable-next-line no-underscore-dangle
+					{ token: authenticate.getToken({ _id: req.user._id }), user: req.user },
+					'login success!'
+				);
+			}
+		});
 	},
 };
 

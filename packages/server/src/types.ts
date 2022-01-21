@@ -17,7 +17,7 @@ declare global {
 		// eslint-disable-next-line no-unused-vars
 		interface User {
 			username: string;
-			id?: string;
+			_id: string;
 			profile?: any;
 			access: accessLevels;
 			// Add whatever you're missing
