@@ -1,3 +1,4 @@
 import logger from './logger';
+import authenticate from './authenticate';
 
-export { logger };
+export { logger, authenticate };

@@ -3,7 +3,7 @@ import userController from '../controllers/user';
 
 const UserRouter = express.Router();
 
-UserRouter.get('/signup', userController.signUp);
+UserRouter.post('/signup', userController.signUp);
 UserRouter.get('/', (_, res) => {
 	res.status(200).json({ data: 'Hello World!' });
 });

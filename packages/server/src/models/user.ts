@@ -1,37 +1,42 @@
-import { DataTypes, Model } from 'sequelize';
-import { sequelize, syncModel } from '../utils';
+import mongoose, { PassportLocalModel } from 'mongoose';
+import passportLocalMongoose from 'passport-local-mongoose';
 
-class User extends Model {}
-
-User.init(
+const User = new mongoose.Schema(
 	{
-		// Model attributes are defined here
-		firstName: {
-			type: DataTypes.STRING,
-			defaultValue: '',
+		firstname: {
+			type: String,
+			default: '',
 		},
-		lastName: {
-			type: DataTypes.STRING,
-			defaultValue: '',
+		lastname: {
+			type: String,
+			default: '',
 		},
-		username: {
-			type: DataTypes.STRING,
-			allowNull: false,
-			unique: true,
+		email: String,
+		facebookId: String,
+		access: {
+			type: Number,
+			default: 0,
+			min: 0,
+			max: 5,
 		},
-		password: {
-			type: DataTypes.STRING,
-			allowNull: false,
+		birthday: {
+			type: Date,
+			default: Date.now(),
+		},
+		description: {
+			type: String,
+			default: '',
+		},
+		flair: {
+			type: String,
+			default: '',
 		},
 	},
 	{
-		sequelize, // We need to pass the connection instance
-		modelName: 'User', // We need to choose the model name
+		timestamps: true,
 	}
 );
 
-syncModel(User);
-// the defined model is the class itself
-console.log(User === sequelize.models.User); // true
+User.plugin(passportLocalMongoose, { session: false });
 
-export default User;
+export default mongoose.model<string, any, PassportLocalModel<any>>('User', User);

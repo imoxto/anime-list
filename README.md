@@ -8,4 +8,4 @@
 
 ## Description
 
-This monorepo of "Anime list". For now, it is backend only, but it will be turned into a fullstack app soon tm
+This monorepo of **Anime list**. For now, it is backend only, but it will be turned into a fullstack app soon tm
