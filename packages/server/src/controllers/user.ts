@@ -60,7 +60,8 @@ const userController = {
 
 	async find(req: Request, res: Response) {
 		try {
-			const users = await Users.find(req.query);
+			console.log(req.query);
+			const users = await Users.find(req.query.filter);
 			handleSuccess(res, users);
 		} catch (error) {
 			handleError(res, 404, error.message, error);
