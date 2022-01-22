@@ -20,7 +20,7 @@ export default {
 	getToken: (user: any) =>
 		jwt.sign(user, process.env.jwtSecret || 'a>]A1<', {
 			expiresIn: process.env.jwtExpiresIn,
-			algorithm: process.env.jwtAlgorithm,
+			algorithm: process.env.jwtAlgorithm || 'HS256',
 		}),
 
 	jwtPassport: passport.use(

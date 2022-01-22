@@ -11,9 +11,7 @@ UserRouter.put(
 	authenticate.verifyUser,
 	authenticate.verifyAccess(0, true),
 	userController.update
-);
-UserRouter.get('/', (_, res) => {
-	res.status(200).json({ data: 'Hello World!' });
-});
+).get('/:username', authenticate.verifyUser, userController.findOne);
+UserRouter.get('/', authenticate.verifyUser, userController.find);
 
 export default UserRouter;

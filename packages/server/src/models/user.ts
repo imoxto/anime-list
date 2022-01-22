@@ -31,6 +31,14 @@ const User = new mongoose.Schema(
 			type: String,
 			default: '',
 		},
+		visibility: {
+			type: String,
+			default: 'Private',
+		},
+		status: {
+			type: String,
+			default: 'Active',
+		},
 	},
 	{
 		timestamps: true,

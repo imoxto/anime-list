@@ -46,7 +46,34 @@ const userController = {
 	},
 
 	async update(req: Request, res: Response) {
-		res.json(req.user);
+		try {
+			const result = await Users.updateOne(
+				{ username: req.params.username },
+				{ $set: { ...req.body } }
+			);
+			const user = await Users.findOne({ username: req.params.username });
+			handleSuccess(res, { result, user });
+		} catch (error) {
+			handleError(res, 500, error.message, error);
+		}
+	},
+
+	async find(req: Request, res: Response) {
+		try {
+			const users = await Users.find(req.query);
+			handleSuccess(res, users);
+		} catch (error) {
+			handleError(res, 404, error.message, error);
+		}
+	},
+
+	async findOne(req: Request, res: Response) {
+		try {
+			const user = await Users.findOne({ username: req.params.username });
+			handleSuccess(res, user);
+		} catch (error) {
+			handleError(res, 404, error.message, error);
+		}
 	},
 };
 
