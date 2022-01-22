@@ -4,7 +4,7 @@ import { authenticate } from '../middlewares';
 import { Users } from '../models';
 import { handleError, handleSuccess } from '../utils';
 
-const userController = {
+export default {
 	async signUp(req: Request, res: Response) {
 		try {
 			let user: any = await Users.register(
@@ -45,7 +45,7 @@ const userController = {
 		});
 	},
 
-	async update(req: Request, res: Response) {
+	async updateOne(req: Request, res: Response) {
 		try {
 			const result = await Users.updateOne(
 				{ username: req.params.username },
@@ -77,5 +77,3 @@ const userController = {
 		}
 	},
 };
-
-export default userController;

@@ -1,5 +1,5 @@
 import express from 'express';
-import userController from '../controllers/user';
+import { userController } from '../controllers';
 import { authenticate } from '../middlewares';
 
 const UserRouter = express.Router();
@@ -10,7 +10,7 @@ UserRouter.put(
 	'/:username',
 	authenticate.verifyUser,
 	authenticate.verifyAccess(0, true),
-	userController.update
+	userController.updateOne
 ).get('/:username', authenticate.verifyUser, userController.findOne);
 UserRouter.get('/', authenticate.verifyUser, userController.find);
 

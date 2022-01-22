@@ -1,3 +1,4 @@
 import userController from './user';
+import animeController from './anime';
 
-export { userController };
+export { userController, animeController };

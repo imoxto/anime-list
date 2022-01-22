@@ -1,9 +1,10 @@
 import { PassportLocalModel } from 'mongoose';
 import passportLocalMongoose from 'passport-local-mongoose';
+import { User } from '../types';
 
 import { mongoose } from '../utils';
 
-const User = new mongoose.Schema(
+const UserModel = new mongoose.Schema(
 	{
 		firstname: {
 			type: String,
@@ -47,6 +48,6 @@ const User = new mongoose.Schema(
 	}
 );
 
-User.plugin(passportLocalMongoose, { session: false });
+UserModel.plugin(passportLocalMongoose, { session: false });
 
-export default mongoose.model<string, any, PassportLocalModel<any>>('User', User);
+export default mongoose.model<User, any, PassportLocalModel<any>>('User', UserModel);
