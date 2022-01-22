@@ -18,14 +18,13 @@ const opts = {
 
 export default {
 	getToken: (user: any) =>
-		jwt.sign(user, process.env.jwtSecret || '1234', {
+		jwt.sign(user, process.env.jwtSecret || 'a>]A1<', {
 			expiresIn: process.env.jwtExpiresIn,
 			algorithm: process.env.jwtAlgorithm,
 		}),
 
 	jwtPassport: passport.use(
 		new Strategy(opts, (jwt_payload, done) => {
-			console.log('Jwt payload :', jwt_payload);
 			// eslint-disable-next-line no-underscore-dangle
 			Users.findOne({ _id: jwt_payload._id }, (err: Error, user: any) => {
 				if (err) {
@@ -41,11 +40,15 @@ export default {
 
 	verifyUser: passport.authenticate('jwt', { session: false }),
 
-	verifyAccess: (req: Request, res: Response, next: NextFunction, access: number) => {
-		if (req.user && req.user.access && access <= req.user.access) {
-			next();
-		} else {
-			handleError(res, 403, 'You are not authorized to perform this operation!');
-		}
-	},
+	verifyAccess:
+		(access: number, self?: boolean) => (req: Request, res: Response, next: NextFunction) => {
+			if (req.user) {
+				if (req.user.access === 5) next();
+				else if (self && req.params.username === req.user.username) next();
+				else if (!self && access <= req.user.access) next();
+				else handleError(res, 403, 'You are not authorized to perform this operation!');
+			} else {
+				handleError(res, 401, 'You are not authenticated!');
+			}
+		},
 };
