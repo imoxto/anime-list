@@ -49,3 +49,5 @@ export interface User {
 	visibility: string;
 	status: string;
 }
+
+export interface Anime {}

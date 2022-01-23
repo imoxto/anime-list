@@ -4,7 +4,7 @@ import { User } from '../types';
 
 import { mongoose } from '../utils';
 
-const UserModel = new mongoose.Schema(
+const UserSchema = new mongoose.Schema(
 	{
 		firstname: {
 			type: String,
@@ -48,6 +48,6 @@ const UserModel = new mongoose.Schema(
 	}
 );
 
-UserModel.plugin(passportLocalMongoose, { session: false });
-
-export default mongoose.model<User, any, PassportLocalModel<any>>('User', UserModel);
+UserSchema.plugin(passportLocalMongoose, { session: false });
+const UserModel = mongoose.model<User, PassportLocalModel<any>>('User', UserSchema);
+export default UserModel;

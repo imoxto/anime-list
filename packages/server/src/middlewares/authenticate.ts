@@ -2,7 +2,7 @@ import { Response, NextFunction, Request } from 'express';
 import passport from 'passport';
 import { Strategy, ExtractJwt } from 'passport-jwt';
 import local from 'passport-local';
-import jwt from 'jsonwebtoken';
+import jwt, { Algorithm } from 'jsonwebtoken';
 import { Users } from '../models';
 import { handleError } from '../utils';
 
@@ -20,7 +20,7 @@ export default {
 	getToken: (user: any) =>
 		jwt.sign(user, process.env.jwtSecret || 'a>]A1<', {
 			expiresIn: process.env.jwtExpiresIn,
-			algorithm: process.env.jwtAlgorithm || 'HS256',
+			algorithm: process.env.jwtAlgorithm as unknown as Algorithm,
 		}),
 
 	jwtPassport: passport.use(

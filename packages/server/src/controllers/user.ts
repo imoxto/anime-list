@@ -60,8 +60,12 @@ export default {
 
 	async find(req: Request, res: Response) {
 		try {
-			console.log(req.query);
-			const users = await Users.find(req.query.filter);
+			let users;
+			if (req.user && req.user.access === 5) {
+				users = await Users.find(req.query);
+			} else {
+				users = await Users.find({ ...req.query, visibility: { $ne: 'unlisted' } });
+			}
 			handleSuccess(res, users);
 		} catch (error) {
 			handleError(res, 404, error.message, error);
