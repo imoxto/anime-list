@@ -1,6 +1,6 @@
 import { PassportLocalModel } from 'mongoose';
 import passportLocalMongoose from 'passport-local-mongoose';
-import { User } from '../types';
+import { IUser } from '../types';
 
 import { mongoose } from '../utils';
 
@@ -49,5 +49,5 @@ const UserSchema = new mongoose.Schema(
 );
 
 UserSchema.plugin(passportLocalMongoose, { session: false });
-const UserModel = mongoose.model<User, PassportLocalModel<any>>('User', UserSchema);
+const UserModel = mongoose.model<IUser, PassportLocalModel<any>>('User', UserSchema);
 export default UserModel;

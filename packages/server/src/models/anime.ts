@@ -1,5 +1,5 @@
 import { mongoose } from '../utils';
-import { Anime } from '../types';
+import { IAnime } from '../types';
 
 const AnimeSchema = new mongoose.Schema(
 	{
@@ -29,4 +29,4 @@ const AnimeSchema = new mongoose.Schema(
 	}
 );
 
-export default mongoose.model<Anime>('Anime', AnimeSchema);
+export default mongoose.model<IAnime>('Anime', AnimeSchema);

@@ -15,6 +15,7 @@ export default {
 				if (req.body.firstname) user.firstname = req.body.firstname;
 				if (req.body.lastname) user.lastname = req.body.lastname;
 				if (req.body.birthday) user.birthday = req.body.birthday;
+				if (req.body.visibility) user.visibility = req.body.visibility;
 
 				user = await user.save();
 				passport.authenticate('local')(req, res, () => {
@@ -63,10 +64,15 @@ export default {
 			let users;
 			if (req.user && req.user.access === 5) {
 				users = await Users.find(req.query);
+				handleSuccess(res, users);
 			} else {
-				users = await Users.find({ ...req.query, visibility: { $ne: 'unlisted' } });
+				users = await Users.find({ ...req.query, visibility: { $eq: 'Public' } });
+				const privateUsers = await Users.find(
+					{ ...req.query, visibility: { $eq: 'Private' } },
+					{ username: 1, visibility: 1, description: 1, status: 1 }
+				);
+				handleSuccess(res, [...users, ...privateUsers]);
 			}
-			handleSuccess(res, users);
 		} catch (error) {
 			handleError(res, 404, error.message, error);
 		}
@@ -74,7 +80,12 @@ export default {
 
 	async findOne(req: Request, res: Response) {
 		try {
-			const user = await Users.findOne({ username: req.params.username });
+			let user;
+			if (req.user && req.user.access === 5) {
+				user = await Users.findOne({ username: req.params.username });
+			} else {
+				user = await Users.find({ username: req.params.username, visibility: { $ne: 'Unlisted' } });
+			}
 			handleSuccess(res, user);
 		} catch (error) {
 			handleError(res, 404, error.message, error);
