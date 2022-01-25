@@ -50,4 +50,5 @@ const UserSchema = new mongoose.Schema(
 
 UserSchema.plugin(passportLocalMongoose, { session: false });
 const UserModel = mongoose.model<IUser, PassportLocalModel<any>>('User', UserSchema);
+// UserModel.syncIndexes()
 export default UserModel;

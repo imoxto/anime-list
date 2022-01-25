@@ -28,5 +28,6 @@ const AnimeSchema = new mongoose.Schema(
 		timestamps: true,
 	}
 );
-
-export default mongoose.model<IAnime>('Anime', AnimeSchema);
+const AnimeModel = mongoose.model<IAnime>('Anime', AnimeSchema);
+AnimeModel.syncIndexes();
+export default AnimeModel;

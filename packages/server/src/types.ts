@@ -28,6 +28,7 @@ export interface IUser {
 	flair: string;
 	visibility: userVisibility;
 	status: userStatus;
+	listId: ObjectId;
 }
 
 export type animeType = 'TV' | 'Movie' | 'OVA' | 'ONA' | 'Special';
@@ -54,6 +55,16 @@ export interface IAnime {
 	members: number;
 	favorites: number;
 	externalLinks: string[];
+}
+
+export type userAnimeStatus = 'Completed' | 'Watching' | 'Plan to Watch' | 'Dropped' | 'On Hold';
+export interface userAnime {
+	score: number;
+	review: string;
+	status: userAnimeStatus;
+}
+export interface IList {
+	animes: userAnime[];
 }
 
 declare global {
