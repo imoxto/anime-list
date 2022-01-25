@@ -1,4 +1,5 @@
 import express from 'express';
+import { handleSuccess } from '../utils';
 import AnimeRouter from './anime';
 
 import UserRouter from './user';
@@ -6,7 +7,7 @@ import UserRouter from './user';
 const RootRouter = express.Router();
 
 RootRouter.get('/', (_, res) => {
-	res.status(200).json({ data: 'Hello World!' });
+	handleSuccess(res, 'Hello World!');
 });
 
 RootRouter.use('/user', UserRouter);

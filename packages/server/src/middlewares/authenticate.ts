@@ -38,7 +38,18 @@ export default {
 		})
 	),
 
-	verifyUser: passport.authenticate('jwt', { session: false }),
+	verifyUser: (req: Request, res: Response, next: NextFunction) => {
+		passport.authenticate('jwt', { session: false }, (err, user) => {
+			if (err) handleError(res, 401, 'Unauthorized', err);
+			else if (!user) handleError(res, 401, 'Unauthorized', err);
+			else {
+				req.logIn(user, (error) => {
+					if (error) handleError(res, 401, 'Unauthorized', error);
+					else next();
+				});
+			}
+		})(req, res, next);
+	},
 
 	verifyAccess:
 		(access: number, self?: boolean) => (req: Request, res: Response, next: NextFunction) => {
