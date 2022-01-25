@@ -6,7 +6,8 @@ export default {
 	async findOne(req: Request, res: Response) {
 		try {
 			// eslint-disable-next-line no-underscore-dangle
-			const anime = await Animes.findOne({ _id: req.params._id });
+			const anime = await Animes.findOne({ _id: req.params.animeId });
+			if (!anime) throw new Error('No anime found');
 			handleSuccess(res, anime);
 		} catch (error) {
 			handleError(res, 404, error.message, error);
