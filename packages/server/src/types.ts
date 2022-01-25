@@ -1,5 +1,6 @@
 import { ObjectId } from 'mongoose';
 
+// Api Responses
 export interface ErrorApiResponse {
 	status: 'error';
 	message: String;
@@ -12,6 +13,7 @@ export interface SuccessApiResponse<data> {
 }
 export type ApiResponse<Data> = SuccessApiResponse<Data> | ErrorApiResponse;
 
+// user related types/interfaces
 export type userAccess = 0 | 1 | 2 | 3 | 4 | 5;
 export type userVisibility = 'Public' | 'Private' | 'Unlisted';
 export type userStatus = 'Active' | 'Muted' | 'Banned' | 'Inactive';
@@ -31,6 +33,7 @@ export interface IUser {
 	listId: ObjectId;
 }
 
+// anime related types/interfaces
 export type animeType = 'TV' | 'Movie' | 'OVA' | 'ONA' | 'Special';
 export type animeSource = 'Manga' | 'Light Novel' | 'Original' | 'Game' | 'Novel' | 'Other';
 export type demographic = 'Shonen' | 'Shoujo' | 'Seinen' | 'Josei';
@@ -57,6 +60,7 @@ export interface IAnime {
 	externalLinks: string[];
 }
 
+// anime-list related types/interfaces
 export type userAnimeStatus = 'Completed' | 'Watching' | 'Plan to Watch' | 'Dropped' | 'On Hold';
 export interface userAnime {
 	score: number;
@@ -67,6 +71,7 @@ export interface IList {
 	animes: userAnime[];
 }
 
+// global declarations
 declare global {
 	// eslint-disable-next-line no-unused-vars
 	namespace Express {
