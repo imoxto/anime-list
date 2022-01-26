@@ -5,14 +5,12 @@ import { handleError, handleSuccess, logger } from '../utils';
 
 export default {
 	async addOrUpdate(req: Request, res: Response) {
-		console.log('addOrUpdate');
-
 		try {
 			if (!req.user) {
 				handleError(res, 401, 'Not Authenticated');
 				return;
 			}
-			const animeId = req.params.animeId ? req.params.animeId : req.body._id;
+			const animeId = req.params.animeId ? req.params.animeId : req.body._id || req.body.animeId;
 			const anime = await Animes.findById(animeId);
 			if (!anime) {
 				handleError(res, 404, 'No Anime Found');
@@ -45,7 +43,7 @@ export default {
 				handleError(res, 401, 'Not Authenticated');
 				return;
 			}
-			const animeId = req.params.animeId ? req.params.animeId : req.body._id;
+			const animeId = req.params.animeId ? req.params.animeId : req.body._id || req.body.animeId;
 			const anime = await Animes.findById(animeId);
 			if (!anime) {
 				handleError(res, 404, 'No Anime Found');
@@ -64,7 +62,6 @@ export default {
 			} else {
 				handleError(res, 404, 'Nothing to Delete');
 			}
-			handleSuccess(res, uList);
 		} catch (err) {
 			logger.error(err);
 			handleError(res, undefined, undefined, err);

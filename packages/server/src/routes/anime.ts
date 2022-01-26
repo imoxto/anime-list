@@ -6,7 +6,6 @@ import UserListRouter from './userList';
 const AnimeRouter = express.Router();
 
 AnimeRouter.use('/list', UserListRouter);
-AnimeRouter.use('/:animeId/list', UserListRouter);
 
 AnimeRouter.post(
 	'/',

@@ -6,6 +6,8 @@ const userListRouter = express.Router();
 
 userListRouter
 	.put('/', authenticate.verifyUser, userListController.addOrUpdate)
-	.delete('/', authenticate.verifyUser, userListController.delete);
+	.put('/:animeId', authenticate.verifyUser, userListController.addOrUpdate)
+	.delete('/', authenticate.verifyUser, userListController.delete)
+	.delete('/:animeId', authenticate.verifyUser, userListController.delete);
 
 export default userListRouter;
