@@ -57,7 +57,11 @@ export default {
 				if (req.user.access === 5) next();
 				else if (self && req.params.username === req.user.username) next();
 				else if (!self && access <= req.user.access) next();
-				else handleError(res, 403, 'You are not authorized to perform this operation!');
+				else {
+					console.log('verifyAccess');
+
+					handleError(res, 403, 'You are not authorized to perform this operation!');
+				}
 			} else {
 				handleError(res, 401, 'You are not authenticated!');
 			}

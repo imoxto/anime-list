@@ -63,11 +63,13 @@ export interface IAnime {
 // anime-list related types/interfaces
 export type userAnimeStatus = 'Completed' | 'Watching' | 'Plan to Watch' | 'Dropped' | 'On Hold';
 export interface userAnime {
+	_id: ObjectId;
 	score: number;
 	review: string;
 	status: userAnimeStatus;
 }
-export interface IList {
+export interface IUserList {
+	user: ObjectId;
 	animes: userAnime[];
 }
 
