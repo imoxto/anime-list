@@ -1,7 +1,8 @@
 import { Request, Response } from 'express';
 import passport from 'passport';
+import { pick } from 'lodash';
 import { authenticate } from '../middlewares';
-import { Users } from '../models';
+import { ULists, Users } from '../models';
 import { handleError, handleSuccess } from '../utils';
 
 export default {
@@ -81,12 +82,30 @@ export default {
 	async findOne(req: Request, res: Response) {
 		try {
 			let user;
-			if (req.user && req.user.access === 5) {
+			let list;
+			if (req.user && (req.user.access === 5 || req.user.username === req.params.username)) {
 				user = await Users.findOne({ username: req.params.username });
+				// eslint-disable-next-line no-underscore-dangle
+				if (user) list = await ULists.findOne({ user: user._id });
+				handleSuccess(res, { ...user, list: list ? list.animes : undefined });
 			} else {
-				user = await Users.find({ username: req.params.username, visibility: { $ne: 'Unlisted' } });
+				user = await Users.findOne({
+					username: req.params.username,
+					visibility: { $ne: 'Unlisted' },
+				});
+				// eslint-disable-next-line no-underscore-dangle
+				if (user && user.visibility === 'Public') {
+					handleSuccess(res, {
+						...user,
+						list,
+					});
+				} else if (user && user.visibility === 'Private') {
+					handleSuccess(res, {
+						...pick(user, ['username', 'visibility', 'description', 'status']),
+						list,
+					});
+				}
 			}
-			handleSuccess(res, user);
 		} catch (error) {
 			handleError(res, 404, error.message, error);
 		}
