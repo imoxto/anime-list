@@ -86,13 +86,17 @@ export default {
 			if (req.user && (req.user.access === 5 || req.user.username === req.params.username)) {
 				user = await Users.findOne({ username: req.params.username });
 				// eslint-disable-next-line no-underscore-dangle
-				if (user) list = await ULists.findOne({ user: user._id });
-				handleSuccess(res, { ...user, list: list ? list.animes : undefined });
+				if (user) {
+					list = await ULists.findOne({ user: user._id });
+					if (list) list = await list.populate('animes._id');
+				}
+				handleSuccess(res, { ...user.toObject(), list: list ? list.animes : undefined });
 			} else {
 				user = await Users.findOne({
 					username: req.params.username,
 					visibility: { $ne: 'Unlisted' },
 				});
+
 				// eslint-disable-next-line no-underscore-dangle
 				if (user && user.visibility === 'Public') {
 					handleSuccess(res, {

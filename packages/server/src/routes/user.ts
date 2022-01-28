@@ -12,6 +12,6 @@ UserRouter.put(
 	authenticate.verifyAccess(0, true),
 	userController.updateOne
 ).get('/:username', authenticate.verifyUser, userController.findOne);
-UserRouter.get('/', authenticate.verifyUser, userController.find);
+UserRouter.get('/', userController.find);
 
 export default UserRouter;
