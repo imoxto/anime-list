@@ -1,5 +1,5 @@
 /* eslint-disable no-undef */
-const { isPrime } = require('..');
+import { isPrime } from '../src';
 
 it('9', () => {
 	expect(isPrime(9)).toBe(false);

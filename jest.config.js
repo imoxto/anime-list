@@ -6,8 +6,8 @@ module.exports = () => {
 		verbose: true,
 		testPathIgnorePatterns: ['<rootDir>/node_modules', '<rootDir>/dist'],
 		modulePathIgnorePatterns: ['<rootDir>/dist'],
-		roots: ['<rootDir>/__tests__'],
-		testMatch: ['<rootDir>/tests/**/*.test.ts'],
+		roots: ['<rootDir>/packages/common/tests','<rootDir>/packages/server/tests'],
+		testMatch: ['<rootDir>/packages/*/tests/**/*.test.ts'],
 		transform: {
 			'^.+\\.(ts)$': 'ts-jest',
 		},
