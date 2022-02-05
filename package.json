@@ -6,7 +6,7 @@
 		"build:watch": "lerna run tsc:watch --parallel --scope @anime-list/common --scope @anime-list/server",
 		"server": "node packages/server/dist/index",
 		"server:watch": "nodemon packages/server/dist/index",
-		"client": "lerna run start --parallel --scope @anime-list/client",
+		"client": "lerna run dev --parallel --scope @anime-list/client",
 		"test": "jest"
 	},
 	"devDependencies": {
