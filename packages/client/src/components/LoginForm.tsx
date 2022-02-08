@@ -6,8 +6,8 @@ import { ILoginFormInputs } from '../types';
 
 const schema = yup
 	.object({
-		username: yup.string().required(),
-		password: yup.string().required(),
+		username: yup.string().required('Username is required!'),
+		password: yup.string().required('Password is required!'),
 	})
 	.required();
 
@@ -15,6 +15,7 @@ const LoginForm: React.FC = () => {
 	const {
 		register,
 		handleSubmit,
+		watch,
 		formState: { errors },
 	} = useForm<ILoginFormInputs>({
 		resolver: yupResolver(schema),
@@ -22,14 +23,28 @@ const LoginForm: React.FC = () => {
 	const onSubmit = (data: ILoginFormInputs) => console.log(data);
 
 	return (
-		<form onSubmit={handleSubmit(onSubmit)}>
-			<input {...register('username')} />
-			<p>{errors.username?.message}</p>
+		<form className="flex flex-col" onSubmit={handleSubmit(onSubmit)} onChange={watch}>
+			<div className="flex flex-col fixed">
+				<div className="flex flex-row">
+					<p className="font-bold">Username: </p>
+					<input {...register('username')} />
+				</div>
+				<p className="small text-sm">
+					{errors.username ? '❌ ' + errors.username.message : '✔ no errors'}
+				</p>
+			</div>
 
-			<input {...register('password')} />
-			<p>{errors.password?.message}</p>
+			<div className="flex flex-col fixed">
+				<div className="flex flex-row">
+					<p className="font-bold">Password: </p>
+					<input {...register('username')} />
+				</div>
+				<p className="small text-sm">
+					{errors.password ? '❌ ' + errors.password.message : '✔ no errors'}
+				</p>
+			</div>
 
-			<input type="submit" />
+			<input className="fixed" type="submit" />
 		</form>
 	);
 };

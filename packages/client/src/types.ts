@@ -13,4 +13,11 @@ export interface ILoginFormInputs {
 
 export interface LoginOrRegisterProps {
 	login: boolean;
+	loginOrReg: (str: 'Login' | 'Register') => () => void;
+	activate?: () => void;
+	deactivate?: () => void;
+}
+
+export interface NavLoginOrRegisterProps {
+	onClick: (login: boolean) => () => void;
 }
