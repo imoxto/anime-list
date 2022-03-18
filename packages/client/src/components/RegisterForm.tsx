@@ -2,19 +2,19 @@ import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import * as yup from 'yup';
 
-import { IRegisterFormInputs } from '../types';
+import { IRegisterFormInputs, RegisterFormProps } from '../types';
 
 const schema = yup
 	.object({
 		firstname: yup.string(),
-		username: yup.string().required(),
-		password: yup.string().required(),
+		username: yup.string().required('Username is Required!'),
+		password: yup.string().min(8, 'Too short password!').required('Password is Required!'),
 		lastname: yup.string(),
-		birthday: yup.date(),
+		birthday: yup.date().required('Birthday is Required!'),
 	})
 	.required();
 
-const RegisterForm: React.FC = () => {
+const RegisterForm: React.FC<RegisterFormProps> = (props) => {
 	const {
 		register,
 		handleSubmit,
@@ -22,26 +22,85 @@ const RegisterForm: React.FC = () => {
 	} = useForm<IRegisterFormInputs>({
 		resolver: yupResolver(schema),
 	});
-	const onSubmit = (data: IRegisterFormInputs) => console.log(data);
 
 	return (
-		<form onSubmit={handleSubmit(onSubmit)}>
-			<input {...register('firstname')} />
-			<p>{errors.firstname?.message}</p>
+		<form className="flex flex-col py-2 mt-2" onSubmit={handleSubmit(props.onSubmit)}>
+			<div className="flex flex-col p-1">
+				<div className="flex flex-row justify-between">
+					<p className="font-bold mr-2">Firstname: </p>
+					<input
+						className={
+							'border border-solid ' +
+							(errors.firstname ? 'border-red-600' : 'border-gray-300 hover:border-gray-400')
+						}
+						placeholder="Firstname"
+						{...register('firstname')}
+					/>
+				</div>
+			</div>
 
-			<input {...register('lastname')} />
-			<p>{errors.lastname?.message}</p>
+			<div className="flex flex-col p-1">
+				<div className="flex flex-row justify-between">
+					<p className="font-bold mr-2">Lastname: </p>
+					<input
+						className={
+							'border border-solid ' +
+							(errors.lastname ? 'border-red-600' : 'border-gray-300 hover:border-gray-400')
+						}
+						placeholder="Lastname"
+						{...register('lastname')}
+					/>
+				</div>
+			</div>
 
-			<input {...register('username')} />
-			<p>{errors.username?.message}</p>
+			<div className="flex flex-col p-1">
+				<div className="flex flex-row justify-between">
+					<p className="font-bold mr-2">Username: </p>
+					<input
+						className={
+							'border border-solid ' +
+							(errors.username ? 'border-red-600' : 'border-gray-300 hover:border-gray-400')
+						}
+						placeholder="Username"
+						{...register('username')}
+					/>
+				</div>
+			</div>
 
-			<input {...register('password')} />
-			<p>{errors.password?.message}</p>
+			<div className="flex flex-col p-1">
+				<div className="flex flex-row justify-between">
+					<p className="font-bold mr-2">Password: </p>
+					<input
+						className={
+							'border border-solid ' +
+							(errors.password ? 'border-red-600' : 'border-gray-300 hover:border-gray-400')
+						}
+						placeholder="Password"
+						{...register('password')}
+					/>
+				</div>
+			</div>
 
-			<input type="date" {...register('birthday')} />
-			<p>{errors.birthday?.message}</p>
+			<div className="flex flex-col p-1">
+				<div className="flex flex-row justify-between">
+					<p className="font-bold mr-2">Birthday: </p>
+					<input
+						type="date"
+						className={
+							'border border-solid ' +
+							(errors.birthday ? 'border-red-600' : 'border-gray-300 hover:border-gray-400')
+						}
+						{...register('birthday')}
+					/>
+				</div>
+			</div>
 
-			<input type="submit" />
+			<input className="m-3 p-1 border hover:bg-gray-200" type="submit" />
+			<p id="LoginError" className="small text-sm text-red-600">
+				{(errors.password && errors.password.message) ||
+					(errors.username && errors.username.message) ||
+					(errors.birthday && 'Invalid Birthdate!')}
+			</p>
 		</form>
 	);
 };

@@ -2,7 +2,7 @@ import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import * as yup from 'yup';
 
-import { ILoginFormInputs } from '../types';
+import { ILoginFormInputs, LoginFormProps } from '../types';
 
 const schema = yup
 	.object({
@@ -11,7 +11,7 @@ const schema = yup
 	})
 	.required();
 
-const LoginForm: React.FC = () => {
+const LoginForm: React.FC<LoginFormProps> = (props) => {
 	const {
 		register,
 		handleSubmit,
@@ -20,31 +20,46 @@ const LoginForm: React.FC = () => {
 	} = useForm<ILoginFormInputs>({
 		resolver: yupResolver(schema),
 	});
-	const onSubmit = (data: ILoginFormInputs) => console.log(data);
 
 	return (
-		<form className="flex flex-col" onSubmit={handleSubmit(onSubmit)} onChange={watch}>
-			<div className="flex flex-col fixed">
-				<div className="flex flex-row">
-					<p className="font-bold">Username: </p>
-					<input {...register('username')} />
+		<form
+			className="flex flex-col py-2 mt-2"
+			onSubmit={handleSubmit(props.onSubmit)}
+			onChange={watch}
+		>
+			<div className="flex flex-col p-1">
+				<div className="flex flex-row justify-between">
+					<p className="font-bold mr-2">Username: </p>
+					<input
+						className={
+							'border border-solid ' +
+							(errors.username ? 'border-red-600' : 'border-gray-300 hover:border-gray-400')
+						}
+						placeholder="Username"
+						{...register('username')}
+					/>
 				</div>
-				<p className="small text-sm">
-					{errors.username ? '❌ ' + errors.username.message : '✔ no errors'}
-				</p>
 			</div>
 
-			<div className="flex flex-col fixed">
-				<div className="flex flex-row">
-					<p className="font-bold">Password: </p>
-					<input {...register('username')} />
+			<div className="flex flex-col p-1">
+				<div className="flex flex-row justify-between">
+					<p className="font-bold mr-2">Password: </p>
+					<input
+						className={
+							'border border-solid ' +
+							(errors.password ? 'border-red-600' : 'border-gray-300 hover:border-gray-400')
+						}
+						placeholder="Password"
+						{...register('password')}
+					/>
 				</div>
-				<p className="small text-sm">
-					{errors.password ? '❌ ' + errors.password.message : '✔ no errors'}
-				</p>
 			</div>
 
-			<input className="fixed" type="submit" />
+			<input className="m-3 p-1 border hover:bg-gray-200" type="submit" />
+			<p id="LoginError" className="small text-sm text-red-600">
+				{(errors.password && errors.password.message) ||
+					(errors.username && errors.username.message)}
+			</p>
 		</form>
 	);
 };
