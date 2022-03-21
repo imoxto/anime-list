@@ -26,6 +26,7 @@ function MyApp({ Component, pageProps }: AppProps) {
 									.then((res: AxiosResponse) => {
 										if (res.data.status === 'success') {
 											localStorage.setItem('Auth', res.data.data.token);
+											localStorage.setItem('Username', res.data.data.user.username);
 										} else {
 											console.log(res.data);
 										}

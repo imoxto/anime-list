@@ -32,7 +32,7 @@ const LoginForm: React.FC<LoginFormProps> = (props) => {
 					<p className="font-bold mr-2">Username: </p>
 					<input
 						className={
-							'border border-solid ' +
+							'px-1 border border-solid ' +
 							(errors.username ? 'border-red-600' : 'border-gray-300 hover:border-gray-400')
 						}
 						placeholder="Username"
@@ -46,7 +46,7 @@ const LoginForm: React.FC<LoginFormProps> = (props) => {
 					<p className="font-bold mr-2">Password: </p>
 					<input
 						className={
-							'border border-solid ' +
+							'px-1 border border-solid ' +
 							(errors.password ? 'border-red-600' : 'border-gray-300 hover:border-gray-400')
 						}
 						placeholder="Password"

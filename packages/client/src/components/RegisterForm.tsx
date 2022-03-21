@@ -30,7 +30,7 @@ const RegisterForm: React.FC<RegisterFormProps> = (props) => {
 					<p className="font-bold mr-2">Firstname: </p>
 					<input
 						className={
-							'border border-solid ' +
+							'px-1 border border-solid ' +
 							(errors.firstname ? 'border-red-600' : 'border-gray-300 hover:border-gray-400')
 						}
 						placeholder="Firstname"
@@ -44,7 +44,7 @@ const RegisterForm: React.FC<RegisterFormProps> = (props) => {
 					<p className="font-bold mr-2">Lastname: </p>
 					<input
 						className={
-							'border border-solid ' +
+							'px-1 border border-solid ' +
 							(errors.lastname ? 'border-red-600' : 'border-gray-300 hover:border-gray-400')
 						}
 						placeholder="Lastname"
@@ -55,10 +55,24 @@ const RegisterForm: React.FC<RegisterFormProps> = (props) => {
 
 			<div className="flex flex-col p-1">
 				<div className="flex flex-row justify-between">
+					<p className="font-bold mr-2">Email: </p>
+					<input
+						className={
+							'px-1 border border-solid ' +
+							(errors.email ? 'border-red-600' : 'border-gray-300 hover:border-gray-400')
+						}
+						placeholder="email address"
+						{...register('email')}
+					/>
+				</div>
+			</div>
+
+			<div className="flex flex-col p-1">
+				<div className="flex flex-row justify-between">
 					<p className="font-bold mr-2">Username: </p>
 					<input
 						className={
-							'border border-solid ' +
+							'px-1 border border-solid ' +
 							(errors.username ? 'border-red-600' : 'border-gray-300 hover:border-gray-400')
 						}
 						placeholder="Username"
@@ -72,9 +86,10 @@ const RegisterForm: React.FC<RegisterFormProps> = (props) => {
 					<p className="font-bold mr-2">Password: </p>
 					<input
 						className={
-							'border border-solid ' +
+							'px-1 border border-solid ' +
 							(errors.password ? 'border-red-600' : 'border-gray-300 hover:border-gray-400')
 						}
+						type="password"
 						placeholder="Password"
 						{...register('password')}
 					/>
@@ -87,7 +102,7 @@ const RegisterForm: React.FC<RegisterFormProps> = (props) => {
 					<input
 						type="date"
 						className={
-							'border border-solid ' +
+							'px-1 border border-solid ' +
 							(errors.birthday ? 'border-red-600' : 'border-gray-300 hover:border-gray-400')
 						}
 						{...register('birthday')}

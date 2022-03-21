@@ -4,6 +4,7 @@ export interface IRegisterFormInputs {
 	username: string;
 	password: string;
 	birthday: Date;
+	email: string;
 }
 
 export interface ILoginFormInputs {

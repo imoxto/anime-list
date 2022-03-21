@@ -1,7 +1,8 @@
-import Router from 'next/router';
+import { useState } from 'react';
 import { NavLoginOrRegisterProps } from '../types';
 
 const NavBar: React.FC<NavLoginOrRegisterProps> = ({ onClick }) => {
+	const [authenticated, setAuthenticated] = useState();
 	return (
 		<nav className="flex flex-warp items-center justify-between bg-gray-500 my-2 pt-4 px-5 font-bold">
 			<div className="w-full block flex-grow lg:flex lg:items-center lg:w-auto">
