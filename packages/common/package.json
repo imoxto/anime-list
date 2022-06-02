@@ -12,15 +12,15 @@
 	"main": "./dist/index.js",
 	"directories": {
 		"dist": "dist",
-		"test": "__tests__"
+		"test": "tests"
 	},
 	"files": [
 		"dist"
 	],
 	"scripts": {
 		"start": "node dist/index.js",
-		"tsc": "tsc",
-		"tsc:watch": "tsc -w",
+		"build": "tsc",
+		"dev": "tsc -w",
 		"test": "jest"
 	},
 	"dependencies": {
