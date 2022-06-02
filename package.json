@@ -2,11 +2,11 @@
 	"scripts": {
 		"bootstrap": "lerna bootstrap",
 		"start": "lerna run start --parallel",
-		"build": "lerna run tsc",
-		"build:watch": "lerna run tsc:watch --parallel --scope @anime-list/common --scope @anime-list/server",
+		"build": "lerna run build",
+		"build:watch": "lerna run build:watch --parallel --scope @anime-list/common --scope @anime-list/server",
 		"server": "node packages/server/dist/index",
 		"server:watch": "nodemon packages/server/dist/index",
-		"client": "lerna run dev --parallel --scope @anime-list/client",
+		"dev": "lerna run dev --parallel",
 		"test": "jest"
 	},
 	"devDependencies": {

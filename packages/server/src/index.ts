@@ -9,6 +9,7 @@ import RootRouter from './routes';
 const PORT = process.env.serverPort || 3001;
 
 const app = express();
+app.use(express.static('public'));
 app.use(express.json());
 app.use(cors());
 app.use(logger);

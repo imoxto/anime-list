@@ -1,7 +1,16 @@
+import { useRouter } from 'next/router';
+import { useContext } from 'react';
 import { LoginForm, RegisterForm } from '../components';
+import { UserContext } from '../contexts';
 import { LoginOrRegisterProps } from '../types';
 
 const LoginOrRegister: React.FC<LoginOrRegisterProps<any>> = (props) => {
+	const router = useRouter();
+	const userContextArr = useContext(UserContext);
+	const onSuccess = (data: any) => {
+		userContextArr && userContextArr[1](data);
+		router.reload();
+	};
 	return (
 		<div className="w-screen h-screen flex flex-col p-6 bg-gray-300 items-center justify-center fixed bg-opacity-70">
 			<div className="w-96 h-96 rounded-md bg-white box shadow-sm flex flex-col p-4 center">
@@ -17,9 +26,9 @@ const LoginOrRegister: React.FC<LoginOrRegisterProps<any>> = (props) => {
 					{props.login ? 'Login' : 'Register'}
 				</h1>
 				{props.login ? (
-					<LoginForm onSubmit={props.submitHandler('Login')} />
+					<LoginForm onSubmit={props.submitHandler('Login', onSuccess)} />
 				) : (
-					<RegisterForm onSubmit={props.submitHandler('Register')} />
+					<RegisterForm onSubmit={props.submitHandler('Register', onSuccess)} />
 				)}
 			</div>
 			<div className="w-96 h-6 rounded-sm bg-white box shadow-sm flex flex-col pl-2 center">

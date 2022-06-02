@@ -16,6 +16,7 @@ const UserSchema = new mongoose.Schema(
 		},
 		email: String,
 		facebookId: String,
+		profileImage: String,
 		access: {
 			type: Number,
 			default: 1,
@@ -24,7 +25,6 @@ const UserSchema = new mongoose.Schema(
 		},
 		birthday: {
 			type: Date,
-			default: Date.now(),
 		},
 		description: {
 			type: String,

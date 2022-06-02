@@ -24,6 +24,7 @@ export interface IUser {
 	lastname: string;
 	email?: string;
 	facebookId?: string;
+	profileImage?: string;
 	access: userAccess;
 	birthday: Date;
 	description: string;

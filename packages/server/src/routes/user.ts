@@ -6,6 +6,7 @@ const UserRouter = express.Router();
 
 UserRouter.post('/signup', userController.signUp);
 UserRouter.post('/login', userController.login);
+
 UserRouter.put(
 	'/:username',
 	authenticate.verifyUser,

@@ -1,8 +1,11 @@
-import { useState } from 'react';
+import { useContext } from 'react';
+import { UserContext } from '../contexts';
 import { NavLoginOrRegisterProps } from '../types';
+import LoginRegRightNav from './LoginRegRightNav';
+import UserRightNav from './UserRightNav';
 
 const NavBar: React.FC<NavLoginOrRegisterProps> = ({ onClick }) => {
-	const [authenticated, setAuthenticated] = useState();
+	const UserContextState = useContext(UserContext);
 	return (
 		<nav className="flex flex-warp items-center justify-between bg-gray-500 my-2 pt-4 px-5 font-bold">
 			<div className="w-full block flex-grow lg:flex lg:items-center lg:w-auto">
@@ -25,20 +28,11 @@ const NavBar: React.FC<NavLoginOrRegisterProps> = ({ onClick }) => {
 					Animes
 				</a>
 			</div>
-			<div className="w-full block ml-4 lg:flex lg:items-right lg:w-auto">
-				<button
-					className="mr-4 bg-gray-700 hover:bg-gray-400 text-white rounded p-2"
-					onClick={onClick(true)}
-				>
-					Login
-				</button>
-				<button
-					className="mr-4 bg-gray-700 hover:bg-gray-400 text-white rounded p-2"
-					onClick={onClick(false)}
-				>
-					Register
-				</button>
-			</div>
+			{UserContextState && UserContextState[0].user ? (
+				<UserRightNav />
+			) : (
+				<LoginRegRightNav onClick={onClick} />
+			)}
 		</nav>
 	);
 };

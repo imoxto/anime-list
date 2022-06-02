@@ -3,6 +3,7 @@ import { yupResolver } from '@hookform/resolvers/yup';
 import * as yup from 'yup';
 
 import { IRegisterFormInputs, RegisterFormProps } from '../types';
+import PasswordField from './PasswordField';
 
 const schema = yup
 	.object({
@@ -11,6 +12,7 @@ const schema = yup
 		password: yup.string().min(8, 'Too short password!').required('Password is Required!'),
 		lastname: yup.string(),
 		birthday: yup.date().required('Birthday is Required!'),
+		email: yup.string().email().required(),
 	})
 	.required();
 
@@ -84,14 +86,12 @@ const RegisterForm: React.FC<RegisterFormProps> = (props) => {
 			<div className="flex flex-col p-1">
 				<div className="flex flex-row justify-between">
 					<p className="font-bold mr-2">Password: </p>
-					<input
-						className={
+					<PasswordField
+						style={
 							'px-1 border border-solid ' +
 							(errors.password ? 'border-red-600' : 'border-gray-300 hover:border-gray-400')
 						}
-						type="password"
-						placeholder="Password"
-						{...register('password')}
+						reg={register}
 					/>
 				</div>
 			</div>
@@ -110,7 +110,7 @@ const RegisterForm: React.FC<RegisterFormProps> = (props) => {
 				</div>
 			</div>
 
-			<input className="m-3 p-1 border hover:bg-gray-200" type="submit" />
+			<input className="m-3 p-1 border hover:bg-gray-200 cursor-pointer" type="submit" />
 			<p id="LoginError" className="small text-sm text-red-600">
 				{(errors.password && errors.password.message) ||
 					(errors.username && errors.username.message) ||
